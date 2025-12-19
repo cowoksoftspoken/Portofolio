@@ -16,19 +16,12 @@ import { CommonModule } from '@angular/common';
           <!-- Profile Card -->
           <div class="about-card glass-card fade-in">
             <div class="profile-image">
-              <div class="image-placeholder">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="80"
-                  height="80"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                >
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
+              <div class="image-container">
+                <img
+                  src="profile-avatar.jpg"
+                  alt="Inggrit Setya Budi - Software Engineer"
+                  class="profile-img"
+                />
               </div>
               <div class="status-badge">
                 <span class="status-dot"></span>
@@ -37,7 +30,7 @@ import { CommonModule } from '@angular/common';
             </div>
 
             <div class="profile-info">
-              <h3 class="profile-name">Setya B</h3>
+              <h3 class="profile-name">Inggrit Setya Budi</h3>
               <p class="profile-title">Software Engineering Student</p>
               <p class="profile-school">
                 <svg
@@ -52,7 +45,7 @@ import { CommonModule } from '@angular/common';
                   <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                   <path d="M6 12v5c3 3 9 3 12 0v-5" />
                 </svg>
-                SMK Krian 1 - RPL
+                SMK Krian 1 Sidoarjo - RPL
               </p>
             </div>
           </div>
@@ -139,20 +132,17 @@ import { CommonModule } from '@angular/common';
         margin-bottom: 25px;
       }
 
-      .image-placeholder {
+      .image-container {
         width: 150px;
         height: 150px;
         margin: 0 auto 20px;
         border-radius: 50%;
         background: linear-gradient(135deg, var(--color-cyan), var(--color-purple));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
+        padding: 4px;
         position: relative;
       }
 
-      .image-placeholder::before {
+      .image-container::before {
         content: '';
         position: absolute;
         inset: -4px;
@@ -161,6 +151,13 @@ import { CommonModule } from '@angular/common';
         z-index: -1;
         opacity: 0.5;
         filter: blur(10px);
+      }
+
+      .profile-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
       }
 
       .status-badge {

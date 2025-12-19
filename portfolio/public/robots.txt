@@ -1,0 +1,16 @@
+# robots.txt for Inggrit Setya Budi Portfolio
+# https://setya.biz.id/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://setya.biz.id/sitemap.xml
+
+# Crawl-delay 
+Crawl-delay: 1
+
+# Block specific paths 
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /assets/fonts/

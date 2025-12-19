@@ -7,7 +7,9 @@ interface Project {
   tags: string[];
   icon: string;
   featured: boolean;
-  link?: string;
+  githubUrl?: string;
+  demoUrl?: string;
+  isPrivate?: boolean;
 }
 
 @Component({
@@ -27,13 +29,14 @@ interface Project {
 
         <div class="projects-grid">
           <div
-            class="project-card glass-card fade-in"
-            *ngFor="let project of projects; let i = index"
+            class="project-card glass-card project-animate"
+            *ngFor="let project of displayedProjects; let i = index"
             [class.featured]="project.featured"
+            [style.animation-delay]="i * 0.1 + 's'"
           >
             <!-- Project Icon -->
             <div class="project-icon">
-              <span>{{ project.icon }}</span>
+              <img [src]="project.icon" [alt]="project.title" />
             </div>
 
             <!-- Project Content -->
@@ -49,7 +52,52 @@ interface Project {
 
             <!-- Project Links -->
             <div class="project-links">
-              <a *ngIf="project.link" [href]="project.link" target="_blank" class="project-link">
+              <a
+                *ngIf="project.githubUrl && !project.isPrivate"
+                [href]="project.githubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link github"
+                title="View on GitHub"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                  />
+                </svg>
+              </a>
+              <span
+                *ngIf="project.isPrivate"
+                class="project-link private"
+                title="Private Repository"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </span>
+              <a
+                *ngIf="project.demoUrl"
+                [href]="project.demoUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link demo"
+                title="Live Demo"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -69,6 +117,25 @@ interface Project {
             <!-- Decorative Elements -->
             <div class="project-decoration"></div>
           </div>
+        </div>
+
+        <!-- View More Button -->
+        <div class="view-more-container" *ngIf="hasMoreItems">
+          <button class="view-more-btn" (click)="toggleShowAll()">
+            <span>{{ showAll ? 'Show Less' : 'View More Projects' }}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              [class.rotated]="showAll"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -116,8 +183,15 @@ interface Project {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
         box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        padding: 15px;
+      }
+
+      .project-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
       }
 
       .project-content {
@@ -155,7 +229,7 @@ interface Project {
 
       .project-links {
         display: flex;
-        gap: 15px;
+        gap: 12px;
       }
 
       .project-link {
@@ -168,11 +242,23 @@ interface Project {
         justify-content: center;
         color: var(--color-cyan);
         transition: all 0.3s ease;
+        text-decoration: none;
       }
 
-      .project-link:hover {
+      .project-link.github:hover {
+        background: #24292e;
+        color: white;
+      }
+
+      .project-link.demo:hover {
         background: var(--color-cyan);
         color: var(--color-navy);
+      }
+
+      .project-link.private {
+        background: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+        cursor: default;
       }
 
       .project-decoration {
@@ -190,6 +276,57 @@ interface Project {
       .project-card:hover .project-decoration {
         transform: scale(1.5);
         opacity: 0.1;
+      }
+
+      .project-animate {
+        animation: projectFadeIn 0.5s ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes projectFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .view-more-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+      }
+
+      .view-more-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 32px;
+        background: transparent;
+        border: 2px solid var(--color-cyan);
+        color: var(--color-cyan);
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .view-more-btn:hover {
+        background: rgba(0, 212, 255, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+      }
+
+      .view-more-btn svg {
+        transition: transform 0.3s ease;
+      }
+
+      .view-more-btn svg.rotated {
+        transform: rotate(180deg);
       }
 
       @media (max-width: 900px) {
@@ -213,40 +350,63 @@ export class ProjectsComponent {
       description:
         'A multi-feature chat application with real-time voice calls, end-to-end encryption for secure messaging, and story functionality similar to popular social platforms.',
       tags: ['TypeScript', 'WebRTC', 'E2E Encryption', 'Real-time'],
-      icon: '💬',
+      icon: 'https://api.iconify.design/mdi/chat-processing.svg',
       featured: true,
+      isPrivate: true,
+      demoUrl: 'https://chat.telepaty.my.id',
     },
     {
       title: 'YouTube Clone',
       description:
         'Full-featured YouTube clone built using the YouTube API with sensitive OAuth scopes, enabling users to authenticate and upload videos directly to their own YouTube accounts.',
       tags: ['YouTube API', 'OAuth 2.0', 'Video Streaming'],
-      icon: '▶️',
+      icon: 'https://cdn.simpleicons.org/youtube/FF0000',
       featured: true,
+      githubUrl: 'https://github.com/cowoksoftspoken/YouTube-Clone-Dev',
+      demoUrl: 'https://youtubeclonedev.vercel.app',
     },
     {
       title: 'Secure File Destroyer',
       description:
         'A low-level file destruction tool that completely wipes files using hardware-level instructions, disk-fill techniques, and SSD-safe wiping algorithms.',
       tags: ['Low-level', 'Security', 'C++', 'File Systems'],
-      icon: '🔒',
+      icon: 'https://api.iconify.design/mdi/shield-lock.svg',
       featured: false,
+      githubUrl: 'https://github.com/cowoksoftspoken/Secure-File-Destroyer',
     },
     {
       title: 'AnimeBase',
       description:
         'An anime database application powered by the Jikan API, featuring comprehensive anime information, search functionality, and a clean user interface.',
       tags: ['Jikan API', 'Angular', 'REST API'],
-      icon: '🎬',
+      icon: 'https://api.iconify.design/mdi/movie-open.svg',
       featured: false,
+      githubUrl: 'https://github.com/cowoksoftspoken/animedata',
+      demoUrl: '#',
     },
     {
       title: 'Telegram Bot Spreadsheet',
       description:
         'A Telegram bot that collects user input through conversational interfaces and stores the data directly into spreadsheets for easy data management.',
       tags: ['Telegram Bot API', 'Google Sheets', 'Automation'],
-      icon: '🤖',
+      icon: 'https://cdn.simpleicons.org/telegram/26A5E4',
       featured: false,
+      demoUrl: '#',
     },
   ];
+
+  showAll = false;
+  itemsToShow = 4;
+
+  get displayedProjects(): Project[] {
+    return this.showAll ? this.projects : this.projects.slice(0, this.itemsToShow);
+  }
+
+  get hasMoreItems(): boolean {
+    return this.projects.length > this.itemsToShow;
+  }
+
+  toggleShowAll() {
+    this.showAll = !this.showAll;
+  }
 }

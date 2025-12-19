@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 interface SocialLink {
   name: string;
   url: string;
   icon: string;
   color: string;
+  bgGradient: string;
 }
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <section id="contact" class="section">
       <div class="container">
@@ -25,80 +27,97 @@ interface SocialLink {
         </p>
 
         <div class="contact-grid">
-          <!-- Contact Card -->
-          <div class="contact-card glass-card fade-in">
-            <div class="contact-header">
-              <div class="contact-icon">
+          <!-- Contact Form -->
+          <div class="contact-form-card glass-card fade-in">
+            <div class="form-header">
+              <div class="form-icon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
+                  width="28"
+                  height="28"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2"
                 >
                   <path
-                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
                   />
+                  <polyline points="22,6 12,13 2,6" />
                 </svg>
               </div>
               <div>
-                <h3>Let's Connect</h3>
-                <p>Always happy to chat about tech!</p>
+                <h3>Send a Message</h3>
+                <p>Fill out the form and I'll get back to you!</p>
               </div>
             </div>
 
-            <div class="contact-info">
-              <div class="info-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <span>Indonesia</span>
+            <form class="contact-form" (ngSubmit)="onSubmit()">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    [(ngModel)]="formData.name"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    [(ngModel)]="formData.email"
+                    placeholder="your.email@example.com"
+                    required
+                  />
+                </div>
               </div>
-              <div class="info-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                </svg>
-                <span>SMK Krian 1 - RPL</span>
-              </div>
-            </div>
 
-            <a href="mailto:contact@example.com" class="btn-primary contact-btn">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  [(ngModel)]="formData.subject"
+                  placeholder="What's this about?"
+                  required
                 />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
-              Send a Message
-            </a>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  [(ngModel)]="formData.message"
+                  rows="5"
+                  placeholder="Tell me about your project..."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary submit-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+                Send Message
+              </button>
+            </form>
           </div>
 
           <!-- Social Links -->
@@ -115,7 +134,9 @@ interface SocialLink {
                 class="social-link"
                 [style.--hover-color]="social.color"
               >
-                <span class="social-icon" [innerHTML]="social.icon"></span>
+                <div class="social-logo" [style.background]="social.bgGradient">
+                  <img class="social-icon" [src]="social.icon" [alt]="social.name" />
+                </div>
                 <span class="social-name">{{ social.name }}</span>
                 <svg
                   class="arrow-icon"
@@ -138,7 +159,19 @@ interface SocialLink {
         <!-- Call to Action -->
         <div class="cta-section fade-in">
           <div class="cta-content glass-card">
-            <span class="cta-emoji">🚀</span>
+            <div class="cta-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+            </div>
             <h3>Ready to build something amazing?</h3>
             <p>Let's collaborate and turn your ideas into reality.</p>
           </div>
@@ -158,27 +191,27 @@ interface SocialLink {
 
       .contact-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1.2fr 1fr;
         gap: 30px;
         margin-bottom: 60px;
       }
 
-      .contact-card,
+      .contact-form-card,
       .social-card {
         padding: 40px;
       }
 
-      .contact-header {
+      .form-header {
         display: flex;
         align-items: center;
         gap: 20px;
         margin-bottom: 30px;
       }
 
-      .contact-icon {
-        width: 65px;
-        height: 65px;
-        border-radius: 18px;
+      .form-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
         background: linear-gradient(135deg, var(--color-cyan), var(--color-purple));
         display: flex;
         align-items: center;
@@ -186,38 +219,72 @@ interface SocialLink {
         color: white;
       }
 
-      .contact-header h3 {
+      .form-header h3 {
         font-size: 1.4rem;
         color: var(--color-text);
         margin-bottom: 5px;
       }
 
-      .contact-header p {
+      .form-header p {
         color: var(--color-text-muted);
         font-size: 0.95rem;
       }
 
-      .contact-info {
+      .contact-form {
         display: flex;
         flex-direction: column;
-        gap: 15px;
-        margin-bottom: 30px;
+        gap: 20px;
       }
 
-      .info-item {
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .form-group {
         display: flex;
-        align-items: center;
-        gap: 12px;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-group label {
+        font-size: 0.9rem;
+        color: var(--color-text);
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        padding: 14px 18px;
+        background: rgba(17, 34, 64, 0.6);
+        border: 1px solid rgba(0, 212, 255, 0.15);
+        border-radius: 12px;
+        color: var(--color-text);
+        font-size: 0.95rem;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        resize: none;
+      }
+
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
         color: var(--color-text-muted);
+        opacity: 0.6;
       }
 
-      .info-item svg {
-        color: var(--color-cyan);
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--color-cyan);
+        background: rgba(0, 212, 255, 0.05);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
       }
 
-      .contact-btn {
-        width: 100%;
+      .submit-btn {
+        margin-top: 10px;
         justify-content: center;
+        gap: 10px;
       }
 
       .social-title {
@@ -228,20 +295,21 @@ interface SocialLink {
 
       .social-subtitle {
         color: var(--color-text-muted);
-        margin-bottom: 30px;
+        margin-bottom: 25px;
       }
 
       .social-grid {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
+        margin-bottom: 30px;
       }
 
       .social-link {
         display: flex;
         align-items: center;
         gap: 15px;
-        padding: 18px 20px;
+        padding: 14px 18px;
         background: rgba(17, 34, 64, 0.5);
         border: 1px solid rgba(0, 212, 255, 0.1);
         border-radius: 12px;
@@ -253,11 +321,12 @@ interface SocialLink {
       .social-link:hover {
         border-color: var(--hover-color, var(--color-cyan));
         background: rgba(0, 212, 255, 0.05);
-        transform: translateX(10px);
+        transform: translateX(8px);
       }
 
-      .social-link:hover .social-icon {
-        color: var(--hover-color, var(--color-cyan));
+      .social-link:hover .social-logo {
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       }
 
       .social-link:hover .arrow-icon {
@@ -265,25 +334,61 @@ interface SocialLink {
         transform: translateX(0);
       }
 
-      .social-icon {
-        width: 24px;
-        height: 24px;
+      .social-logo {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--color-text-muted);
-        transition: color 0.3s ease;
+        flex-shrink: 0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .social-icon {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+
+      .social-icon svg {
+        width: 100%;
+        height: 100%;
       }
 
       .social-name {
         flex: 1;
         font-weight: 500;
+        font-size: 0.95rem;
       }
 
       .arrow-icon {
         opacity: 0;
         transform: translateX(-10px);
         transition: all 0.3s ease;
+        color: var(--color-cyan);
+      }
+
+      .contact-info-section {
+        padding-top: 25px;
+        border-top: 1px solid rgba(0, 212, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--color-text-muted);
+        font-size: 0.95rem;
+      }
+
+      .info-item svg {
         color: var(--color-cyan);
       }
 
@@ -296,10 +401,16 @@ interface SocialLink {
         padding: 40px 60px;
       }
 
-      .cta-emoji {
-        font-size: 3rem;
-        display: block;
-        margin-bottom: 20px;
+      .cta-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(124, 58, 237, 0.15));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-cyan);
       }
 
       .cta-content h3 {
@@ -316,6 +427,10 @@ interface SocialLink {
         .contact-grid {
           grid-template-columns: 1fr;
         }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
       }
 
       @media (max-width: 640px) {
@@ -323,41 +438,72 @@ interface SocialLink {
           padding: 30px;
           width: 100%;
         }
+
+        .contact-form-card,
+        .social-card {
+          padding: 25px;
+        }
       }
     `,
   ],
 })
 export class ContactComponent {
+  formData = {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  };
+
+  // Simple Icons CDN URLs from https://simpleicons.org
   socialLinks: SocialLink[] = [
     {
       name: 'Instagram',
       url: 'https://www.instagram.com/i.setya_b',
-      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+      icon: 'https://cdn.simpleicons.org/instagram/ffffff',
       color: '#E4405F',
+      bgGradient: 'linear-gradient(135deg, #833AB4, #E4405F, #FCAF45)',
     },
     {
       name: 'GitHub',
       url: 'https://github.com/cowoksoftspoken',
-      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>`,
-      color: '#ffffff',
+      icon: 'https://cdn.simpleicons.org/github/ffffff',
+      color: '#181717',
+      bgGradient: 'linear-gradient(135deg, #24292e, #404448)',
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com',
-      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`,
+      url: 'https://www.linkedin.com/in/inggrit-setya-budi-64387333b/',
+      icon: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linkedin.svg',
       color: '#0A66C2',
+      bgGradient: 'linear-gradient(135deg, #0077B5, #0A66C2)',
+    },
+    {
+      name: 'WhatsApp',
+      url: 'https://wa.me/',
+      icon: 'https://cdn.simpleicons.org/whatsapp/ffffff',
+      color: '#25D366',
+      bgGradient: 'linear-gradient(135deg, #25D366, #128C7E)',
     },
     {
       name: 'Discord',
       url: 'https://discord.com',
-      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M7.5 7.5c3.5-1 5.5-1 9 0"/><path d="M7 16.5c3.5 1 6.5 1 10 0"/><path d="M15.5 17c0 1 1.5 3 2 3 1.5 0 2.833-1.667 3.5-3 .667-1.667.5-5.833-1.5-11.5-1.457-1.015-3-1.34-4.5-1.5l-1 2.5"/><path d="M8.5 17c0 1-1.356 3-1.832 3-1.429 0-2.698-1.667-3.333-3-.635-1.667-.476-5.833 1.428-11.5C6.151 4.485 7.545 4.16 9 4l1 2.5"/></svg>`,
+      icon: 'https://cdn.simpleicons.org/discord/ffffff',
       color: '#5865F2',
+      bgGradient: 'linear-gradient(135deg, #5865F2, #7289DA)',
     },
     {
       name: 'Facebook',
-      url: 'https://facebook.com',
-      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
-      color: '#1877F2',
+      url: 'https://www.facebook.com/share/16Y8vXuZFg/',
+      icon: 'https://cdn.simpleicons.org/facebook/ffffff',
+      color: '#0866FF',
+      bgGradient: 'linear-gradient(135deg, #0866FF, #1877F2)',
     },
   ];
+
+  onSubmit() {
+    console.log('Form submitted:', this.formData);
+    alert('Thank you for your message! I will get back to you soon.');
+    this.formData = { name: '', email: '', subject: '', message: '' };
+  }
 }

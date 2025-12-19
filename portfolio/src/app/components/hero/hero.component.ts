@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 
           <!-- Main Name -->
           <h1 class="hero-name">
-            <span class="gradient-text">Setya B</span>
+            <span class="gradient-text">Inggrit Setya B</span>
           </h1>
 
           <!-- Animated Role -->
@@ -72,7 +72,7 @@ import { CommonModule } from '@angular/common';
             <span class="tech-label">Current Stack:</span>
             <div class="tech-icons">
               <span class="tech-badge">TypeScript</span>
-              <span class="tech-badge">Angular</span>
+              <span class="tech-badge">Next.js</span>
               <span class="tech-badge">Python</span>
               <span class="tech-badge">Node.js</span>
             </div>
@@ -93,11 +93,12 @@ import { CommonModule } from '@angular/common';
         <div class="circle circle-1"></div>
         <div class="circle circle-2"></div>
         <div class="code-block">
-          <pre><code>const developer = &#123;
-  name: "Setya B",
+          <pre><code>const developer: DeveloperLife = &#123;
+  name: "Inggrit Setya Budi",
   role: "Software Engineer",
   passion: ["Web", "AI", "Mobile"],
-  coffee: true
+  coffee: true,
+  github: "https://github.com/cowoksoftspoken",
 &#125;;</code></pre>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Skill {
@@ -10,7 +10,19 @@ interface Skill {
 interface Tool {
   name: string;
   icon: string;
-  category: string;
+  color: string;
+}
+
+interface Database {
+  name: string;
+  icon: string;
+  color: string;
+}
+
+interface Learning {
+  name: string;
+  description: string;
+  icon: string;
 }
 
 @Component({
@@ -46,7 +58,7 @@ interface Tool {
             </div>
 
             <div class="skills-list">
-              <div class="skill-item" *ngFor="let skill of programmingSkills; let i = index">
+              <div class="skill-item" *ngFor="let skill of programmingSkills">
                 <div class="skill-header">
                   <span class="skill-name">{{ skill.name }}</span>
                   <span class="skill-percentage">{{ skill.level }}%</span>
@@ -86,18 +98,16 @@ interface Tool {
             </div>
 
             <div class="tools-grid">
-              <div
-                class="tool-badge"
-                *ngFor="let tool of tools"
-                [attr.data-category]="tool.category"
-              >
-                <span class="tool-icon">{{ tool.icon }}</span>
+              <div class="tool-badge" *ngFor="let tool of tools" [style.--tool-color]="tool.color">
+                <span class="tool-icon">
+                  <img [src]="tool.icon" alt="tool.name" />
+                </span>
                 <span class="tool-name">{{ tool.name }}</span>
               </div>
             </div>
           </div>
 
-          <!-- Databases -->
+          <!-- Databases & ML -->
           <div class="db-card glass-card fade-in">
             <div class="card-header">
               <div class="card-icon">
@@ -115,12 +125,14 @@ interface Tool {
                   <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
                 </svg>
               </div>
-              <h3>Databases</h3>
+              <h3>Databases & ML</h3>
             </div>
 
             <div class="db-grid">
-              <div class="db-item" *ngFor="let db of databases">
-                <div class="db-icon">{{ db.icon }}</div>
+              <div class="db-item" *ngFor="let db of databases" [style.--db-color]="db.color">
+                <div class="db-icon">
+                  <img [src]="db.icon" alt="db.name" />
+                </div>
                 <span class="db-name">{{ db.name }}</span>
               </div>
             </div>
@@ -148,18 +160,13 @@ interface Tool {
             </div>
 
             <div class="learning-items">
-              <div class="learning-item">
-                <span class="learning-badge">🤖</span>
-                <div class="learning-info">
-                  <h4>Machine Learning</h4>
-                  <p>Neural networks, TensorFlow</p>
+              <div class="learning-item" *ngFor="let item of learningItems">
+                <div class="learning-badge">
+                  <img [src]="item.icon" alt="item.name" />
                 </div>
-              </div>
-              <div class="learning-item">
-                <span class="learning-badge">🧠</span>
                 <div class="learning-info">
-                  <h4>Artificial Intelligence</h4>
-                  <p>AI integration in real systems</p>
+                  <h4>{{ item.name }}</h4>
+                  <p>{{ item.description }}</p>
                 </div>
               </div>
             </div>
@@ -256,10 +263,10 @@ interface Tool {
       .tool-badge {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 10px 18px;
-        background: rgba(0, 212, 255, 0.1);
-        border: 1px solid rgba(0, 212, 255, 0.2);
+        gap: 10px;
+        padding: 12px 18px;
+        background: rgba(0, 212, 255, 0.08);
+        border: 1px solid rgba(0, 212, 255, 0.15);
         border-radius: 25px;
         font-size: 0.9rem;
         color: var(--color-text);
@@ -267,13 +274,22 @@ interface Tool {
       }
 
       .tool-badge:hover {
-        background: rgba(0, 212, 255, 0.2);
-        border-color: rgba(0, 212, 255, 0.4);
+        background: rgba(0, 212, 255, 0.15);
+        border-color: var(--tool-color, var(--color-cyan));
         transform: translateY(-3px);
       }
 
       .tool-icon {
-        font-size: 1.1rem;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tool-icon svg {
+        width: 100%;
+        height: 100%;
       }
 
       .db-grid {
@@ -285,7 +301,7 @@ interface Tool {
       .db-item {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
         padding: 18px;
         background: rgba(17, 34, 64, 0.5);
         border-radius: 12px;
@@ -294,12 +310,21 @@ interface Tool {
       }
 
       .db-item:hover {
-        border-color: rgba(0, 212, 255, 0.3);
+        border-color: var(--db-color, var(--color-cyan));
         transform: translateX(5px);
       }
 
       .db-icon {
-        font-size: 1.8rem;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .db-icon svg {
+        width: 100%;
+        height: 100%;
       }
 
       .db-name {
@@ -330,7 +355,20 @@ interface Tool {
       }
 
       .learning-badge {
-        font-size: 2.5rem;
+        width: 55px;
+        height: 55px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(0, 212, 255, 0.2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-cyan);
+        flex-shrink: 0;
+      }
+
+      .learning-badge svg {
+        width: 28px;
+        height: 28px;
       }
 
       .learning-info h4 {
@@ -375,17 +413,48 @@ export class SkillsComponent implements AfterViewInit {
   ];
 
   tools: Tool[] = [
-    { name: 'Angular', icon: '🅰️', category: 'frontend' },
-    { name: 'Node.js', icon: '🟢', category: 'backend' },
-    { name: 'Express', icon: '⚡', category: 'backend' },
-    { name: 'Bun', icon: '🍞', category: 'runtime' },
-    { name: 'Tailwind CSS', icon: '🎨', category: 'styling' },
-    { name: 'Prisma', icon: '△', category: 'orm' },
+    { name: 'Angular', icon: 'https://cdn.simpleicons.org/angular/DD0031', color: '#DD0031' },
+    { name: 'Next.js', icon: 'https://cdn.simpleicons.org/nextdotjs/000000', color: '#000000' },
+    { name: 'Node.js', icon: 'https://cdn.simpleicons.org/nodedotjs/339933', color: '#339933' },
+    { name: 'Express', icon: 'https://cdn.simpleicons.org/express/000000', color: '#000000' },
+    { name: 'Bun', icon: 'https://cdn.simpleicons.org/bun/FBF0DF', color: '#FBF0DF' },
+    { name: 'pnpm', icon: 'https://cdn.simpleicons.org/pnpm/F69220', color: '#F69220' },
+    { name: 'Tailwind CSS', icon: 'https://cdn.simpleicons.org/tailwindcss', color: '#06B6D4' },
   ];
 
-  databases = [
-    { name: 'MySQL', icon: '🐬' },
-    { name: 'Firebase', icon: '🔥' },
+  databases: Database[] = [
+    { name: 'MySQL', icon: 'https://cdn.simpleicons.org/mysql/4479A1', color: '#4479A1' },
+    { name: 'Firebase', icon: 'https://cdn.simpleicons.org/firebase/FFCA28', color: '#FFCA28' },
+    { name: 'Prisma', icon: 'https://cdn.simpleicons.org/prisma/ffffff', color: '#2D3748' },
+    { name: 'TensorFlow', icon: 'https://cdn.simpleicons.org/tensorflow/FF6F00', color: '#FF6F00' },
+    {
+      name: 'Scikit-learn',
+      icon: 'https://cdn.simpleicons.org/scikitlearn/F7931E',
+      color: '#F7931E',
+    },
+  ];
+
+  learningItems: Learning[] = [
+    {
+      name: 'Machine Learning',
+      description: 'Neural networks, TensorFlow, scikit-learn',
+      icon: 'https://api.iconify.design/mdi/brain.svg?color=%2300d4ff',
+    },
+    {
+      name: 'Neural Networks',
+      description: 'Deep learning architectures',
+      icon: 'https://api.iconify.design/mdi/graph.svg?color=%2300d4ff',
+    },
+    {
+      name: 'Artificial Intelligence',
+      description: 'AI integration in real systems',
+      icon: 'https://api.iconify.design/mdi/robot.svg?color=%2300d4ff',
+    },
+    {
+      name: 'AI Integration',
+      description: 'Real-world system integration',
+      icon: 'https://api.iconify.design/mdi/head-cog.svg?color=%2300d4ff',
+    },
   ];
 
   ngAfterViewInit() {
