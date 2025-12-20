@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 
           <!-- Main Name -->
           <h1 class="hero-name">
-            <span class="gradient-text">Inggrit Setya B</span>
+            <span class="gradient-text">Inggrit Setya Budi</span>
           </h1>
 
           <!-- Animated Role -->

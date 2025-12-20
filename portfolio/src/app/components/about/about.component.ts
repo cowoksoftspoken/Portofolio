@@ -31,8 +31,8 @@ import { CommonModule } from '@angular/common';
 
             <div class="profile-info">
               <h3 class="profile-name">Inggrit Setya Budi</h3>
-              <p class="profile-title">Software Engineering Student</p>
-              <p class="profile-school">
+              <p class="profile-title">Software Engineer</p>
+              <!-- <p class="profile-school">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -46,7 +46,7 @@ import { CommonModule } from '@angular/common';
                   <path d="M6 12v5c3 3 9 3 12 0v-5" />
                 </svg>
                 SMK Krian 1 Sidoarjo - RPL
-              </p>
+              </p> -->
             </div>
           </div>
 

@@ -414,12 +414,17 @@ export class SkillsComponent implements AfterViewInit {
 
   tools: Tool[] = [
     { name: 'Angular', icon: 'https://cdn.simpleicons.org/angular/DD0031', color: '#DD0031' },
-    { name: 'Next.js', icon: 'https://cdn.simpleicons.org/nextdotjs/000000', color: '#000000' },
+    { name: 'Next.js', icon: 'https://cdn.simpleicons.org/nextdotjs/ffffff', color: '#ffffff' },
     { name: 'Node.js', icon: 'https://cdn.simpleicons.org/nodedotjs/339933', color: '#339933' },
     { name: 'Express', icon: 'https://cdn.simpleicons.org/express/000000', color: '#000000' },
     { name: 'Bun', icon: 'https://cdn.simpleicons.org/bun/FBF0DF', color: '#FBF0DF' },
     { name: 'pnpm', icon: 'https://cdn.simpleicons.org/pnpm/F69220', color: '#F69220' },
     { name: 'Tailwind CSS', icon: 'https://cdn.simpleicons.org/tailwindcss', color: '#06B6D4' },
+    { name: 'HTML5', icon: 'https://cdn.simpleicons.org/html5/E34F26', color: '#E34F26' },
+    { name: 'CSS3', icon: 'https://cdn.simpleicons.org/css/1572B6', color: '#1572B6' },
+    { name: 'Git', icon: 'https://cdn.simpleicons.org/git/F05032', color: '#F05032' },
+    { name: 'React.js', icon: 'https://cdn.simpleicons.org/react/61DAFB', color: '#61DAFB' },
+    { name: 'Flask', icon: 'https://cdn.simpleicons.org/flask/ffffff', color: '#ffffff' },
   ];
 
   databases: Database[] = [

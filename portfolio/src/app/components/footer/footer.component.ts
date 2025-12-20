@@ -86,7 +86,7 @@ import { CommonModule } from '@angular/common';
             <pre class="footer-code"><code><span class="code-comment">// Developer Info</span>
 <span class="code-keyword">const</span> <span class="code-variable">developer</span> = &#123;
   <span class="code-property">name</span>: <span class="code-string">"Inggrit Setya Budi"</span>,
-  <span class="code-property">role</span>: <span class="code-string">"Software Engineering Student"</span>,
+  <span class="code-property">role</span>: <span class="code-string">"Software Engineer"</span>,
   <span class="code-property">school</span>: <span class="code-string">"SMK Krian 1 Sidoarjo"</span>,
   <span class="code-property">year</span>: <span class="code-number">{{ currentYear }}</span>,
   <span class="code-property">madeWith</span>: <span class="code-heart">&hearts;</span>

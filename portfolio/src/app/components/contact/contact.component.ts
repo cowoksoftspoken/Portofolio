@@ -439,6 +439,11 @@ interface SocialLink {
           width: 100%;
         }
 
+        .form-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
         .contact-form-card,
         .social-card {
           padding: 25px;
