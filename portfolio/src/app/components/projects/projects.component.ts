@@ -152,8 +152,9 @@ interface Project {
 
       .projects-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
+        align-items: end;
       }
 
       .project-card {
@@ -196,6 +197,8 @@ interface Project {
 
       .project-content {
         flex: 1;
+        display: flex;
+        flex-direction: column;
       }
 
       .project-title {
@@ -215,6 +218,7 @@ interface Project {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+        margin-top: 20px;
       }
 
       .tag {
@@ -230,6 +234,7 @@ interface Project {
       .project-links {
         display: flex;
         gap: 12px;
+        margin-top: 20px;
       }
 
       .project-link {
@@ -349,7 +354,7 @@ export class ProjectsComponent {
       title: 'Telepaty',
       description:
         'A multi-feature chat application with real-time voice calls, end-to-end encryption for secure messaging, and story functionality similar to popular social platforms.',
-      tags: ['TypeScript', 'WebRTC', 'E2E Encryption', 'Real-time'],
+      tags: ['TypeScript', 'WebRTC', 'E2E Encryption', 'Firebase'],
       icon: 'https://api.iconify.design/mdi/chat-processing.svg',
       featured: true,
       isPrivate: true,
@@ -372,7 +377,7 @@ export class ProjectsComponent {
       tags: ['Low-level', 'Security', 'C++', 'File Systems'],
       icon: 'https://api.iconify.design/mdi/shield-lock.svg',
       featured: false,
-      githubUrl: 'https://github.com/cowoksoftspoken/Secure-File-Destroyer',
+      githubUrl: 'https://github.com/cowoksoftspoken/Secure_File_Destroyer',
     },
     {
       title: 'AnimeBase',
@@ -382,7 +387,7 @@ export class ProjectsComponent {
       icon: 'https://api.iconify.design/mdi/movie-open.svg',
       featured: false,
       githubUrl: 'https://github.com/cowoksoftspoken/animedata',
-      demoUrl: '#',
+      demoUrl: 'https://animebase.vercel.app',
     },
     {
       title: 'Telegram Bot Spreadsheet',
@@ -391,7 +396,7 @@ export class ProjectsComponent {
       tags: ['Telegram Bot API', 'Google Sheets', 'Automation'],
       icon: 'https://cdn.simpleicons.org/telegram/26A5E4',
       featured: false,
-      demoUrl: '#',
+      demoUrl: 'https://t.me/belajar9bot',
     },
   ];
 
