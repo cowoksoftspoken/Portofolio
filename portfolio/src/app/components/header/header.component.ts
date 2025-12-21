@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
+  selector: 'setya-header',
   standalone: true,
   imports: [CommonModule],
   template: `
@@ -20,7 +20,12 @@ import { CommonModule } from '@angular/common';
           <!-- Desktop Navigation -->
           <ul class="nav-links" [class.active]="mobileMenuOpen">
             <li *ngFor="let link of navLinks">
-              <a [href]="'#' + link.id" class="nav-link" (click)="scrollTo($event, link.id)">
+              <a
+                [href]="'#' + link.id"
+                class="nav-link"
+                [class.active]="activeSection === link.id"
+                (click)="scrollTo($event, link.id)"
+              >
                 {{ link.label }}
               </a>
             </li>
@@ -166,6 +171,14 @@ import { CommonModule } from '@angular/common';
       }
 
       .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .nav-link.active {
+        color: var(--color-cyan);
+      }
+
+      .nav-link.active::after {
         width: 100%;
       }
 
@@ -316,9 +329,11 @@ import { CommonModule } from '@angular/common';
     `,
   ],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   @Input() isScrolled = false;
   mobileMenuOpen = false;
+  activeSection = '';
+  private scrollListener: (() => void) | null = null;
 
   navLinks = [
     { id: 'about', label: 'About' },
@@ -326,8 +341,55 @@ export class HeaderComponent {
     { id: 'projects', label: 'Projects' },
     { id: 'certificates', label: 'Certificates' },
     { id: 'gallery', label: 'Gallery' },
+    { id: 'experiments', label: 'Experiments' },
     { id: 'contact', label: 'Contact' },
   ];
+
+  ngOnInit() {
+    this.updateActiveSection();
+  }
+
+  ngOnDestroy() {
+    // Cleanup if needed
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.updateActiveSection();
+  }
+
+  private updateActiveSection() {
+    const scrollPosition = window.scrollY + 150;
+
+    // Check sections in reverse order (bottom to top)
+    const sectionIds = [
+      'contact',
+      'experiments',
+      'gallery',
+      'certificates',
+      'projects',
+      'skills',
+      'about',
+    ];
+
+    for (const id of sectionIds) {
+      const element = document.getElementById(id);
+      if (element) {
+        const offsetTop = element.offsetTop;
+        const offsetHeight = element.offsetHeight;
+
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          this.activeSection = id;
+          return;
+        }
+      }
+    }
+
+    // If at top of page
+    if (window.scrollY < 100) {
+      this.activeSection = '';
+    }
+  }
 
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen;
@@ -342,5 +404,6 @@ export class HeaderComponent {
     } else if (id === 'hero') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    this.activeSection = id;
   }
 }

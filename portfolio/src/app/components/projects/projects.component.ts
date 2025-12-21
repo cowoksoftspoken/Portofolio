@@ -13,7 +13,7 @@ interface Project {
 }
 
 @Component({
-  selector: 'app-projects',
+  selector: 'setya-projects',
   standalone: true,
   imports: [CommonModule],
   template: `
@@ -154,7 +154,7 @@ interface Project {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
-        align-items: end;
+        align-items: stretch;
       }
 
       .project-card {
@@ -353,7 +353,7 @@ export class ProjectsComponent {
     {
       title: 'Telepaty',
       description:
-        'A multi-feature chat application with real-time voice calls, end-to-end encryption for secure messaging, and story functionality similar to popular social platforms.',
+        'A multi-feature chat application with real-time voice and video calls, end-to-end encryption for secure messaging, and story functionality similar to popular social platforms.',
       tags: ['TypeScript', 'WebRTC', 'E2E Encryption', 'Firebase'],
       icon: 'https://api.iconify.design/mdi/chat-processing.svg',
       featured: true,
@@ -363,7 +363,7 @@ export class ProjectsComponent {
     {
       title: 'YouTube Clone',
       description:
-        'Full-featured YouTube clone built using the YouTube API with sensitive OAuth scopes, enabling users to authenticate and upload videos directly to their own YouTube accounts.',
+        'A full-featured YouTube clone built using the YouTube API with sensitive OAuth scopes, allowing users to authenticate and upload videos directly to their own YouTube accounts and allowing them to interact and comment on their own or others videos. Plus, the floating picture-in-picture video feature makes this YouTube clone very similar to the original.',
       tags: ['YouTube API', 'OAuth 2.0', 'Video Streaming'],
       icon: 'https://cdn.simpleicons.org/youtube/FF0000',
       featured: true,

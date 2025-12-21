@@ -9,6 +9,7 @@ import { CertificatesComponent } from './components/certificates/certificates.co
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ExperimentsComponent } from './components/experiments/experiments.component';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ import { FooterComponent } from './components/footer/footer.component';
     ProjectsComponent,
     CertificatesComponent,
     GalleryComponent,
+    ExperimentsComponent,
     ContactComponent,
     FooterComponent,
   ],
@@ -35,21 +37,22 @@ import { FooterComponent } from './components/footer/footer.component';
     </div>
 
     <!-- Header -->
-    <app-header [isScrolled]="isScrolled"></app-header>
+    <setya-header [isScrolled]="isScrolled"></setya-header>
 
     <!-- Main Content -->
     <main>
-      <app-hero></app-hero>
-      <app-about></app-about>
-      <app-skills></app-skills>
-      <app-projects></app-projects>
-      <app-certificates></app-certificates>
-      <app-gallery></app-gallery>
-      <app-contact></app-contact>
+      <setya-hero></setya-hero>
+      <setya-about></setya-about>
+      <setya-skills></setya-skills>
+      <setya-projects></setya-projects>
+      <setya-certificates></setya-certificates>
+      <setya-gallery></setya-gallery>
+      <setya-experiments></setya-experiments>
+      <setya-contact></setya-contact>
     </main>
 
     <!-- Footer -->
-    <app-footer></app-footer>
+    <setya-footer></setya-footer>
 
     <!-- Back to Top Button -->
     <button

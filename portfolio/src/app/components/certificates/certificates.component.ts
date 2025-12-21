@@ -11,7 +11,7 @@ interface Certificate {
 }
 
 @Component({
-  selector: 'app-certificates',
+  selector: 'setya-certificates',
   standalone: true,
   imports: [CommonModule],
   template: `

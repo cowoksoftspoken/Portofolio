@@ -8,7 +8,7 @@ interface GalleryItem {
 }
 
 @Component({
-  selector: 'app-gallery',
+  selector: 'setya-gallery',
   standalone: true,
   imports: [CommonModule],
   template: `

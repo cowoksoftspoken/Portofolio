@@ -11,7 +11,7 @@ interface SocialLink {
 }
 
 @Component({
-  selector: 'app-contact',
+  selector: 'setya-contact',
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
@@ -257,8 +257,8 @@ interface SocialLink {
       .form-group input,
       .form-group textarea {
         padding: 14px 18px;
-        background: rgba(17, 34, 64, 0.6);
-        border: 1px solid rgba(0, 212, 255, 0.15);
+        background: rgba(26, 26, 26, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
         color: var(--color-text);
         font-size: 0.95rem;
@@ -277,7 +277,7 @@ interface SocialLink {
       .form-group textarea:focus {
         outline: none;
         border-color: var(--color-cyan);
-        background: rgba(0, 212, 255, 0.05);
+        background: rgba(0, 0, 0, 0.4);
         box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
       }
 
@@ -310,8 +310,8 @@ interface SocialLink {
         align-items: center;
         gap: 15px;
         padding: 14px 18px;
-        background: rgba(17, 34, 64, 0.5);
-        border: 1px solid rgba(0, 212, 255, 0.1);
+        background: rgba(26, 26, 26, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.06);
         border-radius: 12px;
         text-decoration: none;
         color: var(--color-text);
@@ -320,7 +320,7 @@ interface SocialLink {
 
       .social-link:hover {
         border-color: var(--hover-color, var(--color-cyan));
-        background: rgba(0, 212, 255, 0.05);
+        background: rgba(0, 0, 0, 0.4);
         transform: translateX(8px);
       }
 

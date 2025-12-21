@@ -26,7 +26,7 @@ interface Learning {
 }
 
 @Component({
-  selector: 'app-skills',
+  selector: 'setya-skills',
   standalone: true,
   imports: [CommonModule],
   template: `
@@ -235,6 +235,7 @@ interface Learning {
 
       .skill-item {
         width: 100%;
+        min-width: 0;
       }
 
       .skill-header {
@@ -303,7 +304,7 @@ interface Learning {
         align-items: center;
         gap: 14px;
         padding: 18px;
-        background: rgba(17, 34, 64, 0.5);
+        background: rgba(26, 26, 26, 0.8);
         border-radius: 12px;
         border: 1px solid rgba(0, 212, 255, 0.1);
         transition: all 0.3s ease;
@@ -343,7 +344,7 @@ interface Learning {
         align-items: center;
         gap: 18px;
         padding: 20px;
-        background: rgba(17, 34, 64, 0.5);
+        background: rgba(26, 26, 26, 0.8);
         border-radius: 15px;
         border: 1px solid rgba(124, 58, 237, 0.2);
         transition: all 0.3s ease;
@@ -395,6 +396,15 @@ interface Learning {
 
         .tools-grid {
           justify-content: center;
+        }
+
+        .progress-bar {
+          min-height: 12px;
+          height: 12px;
+        }
+
+        .progress-fill {
+          min-height: 12px;
         }
       }
     `,
