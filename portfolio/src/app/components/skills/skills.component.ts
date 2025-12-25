@@ -255,6 +255,20 @@ interface Learning {
         font-size: 0.9rem;
       }
 
+      .progress-bar {
+        width: 100%;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 10px;
+        transition: width 1s ease-out;
+      }
+
       .tools-grid {
         display: flex;
         flex-wrap: wrap;
@@ -482,7 +496,7 @@ export class SkillsComponent implements AfterViewInit {
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
     setTimeout(() => {

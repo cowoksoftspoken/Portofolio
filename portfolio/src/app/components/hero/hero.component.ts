@@ -1,15 +1,27 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LaserFlowComponent } from './laser-flow.component';
 
 @Component({
   selector: 'setya-hero',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LaserFlowComponent],
   template: `
     <section id="hero" class="hero">
+      <setya-laser-flow
+        *ngIf="isDesktop"
+        class="laser-background"
+        [color]="'#00d4ff'"
+        [verticalBeamOffset]="-0.5"
+        [horizontalBeamOffset]="0.0"
+        [fogIntensity]="0.4"
+        [wispIntensity]="3.0"
+        [verticalSizing]="3.0"
+      ></setya-laser-flow>
+
+      <div class="hero-floor-glow"></div>
       <div class="container">
         <div class="hero-content">
-          <!-- Code Comment Style Intro -->
           <p class="hero-greeting">
             <span class="comment">// Hello, World! I'm</span>
           </p>
@@ -80,7 +92,7 @@ import { CommonModule } from '@angular/common';
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
+        <div class="scroll-indicator" *ngIf="!isDesktop">
           <div class="mouse">
             <div class="wheel"></div>
           </div>
@@ -88,8 +100,11 @@ import { CommonModule } from '@angular/common';
         </div>
       </div>
 
+      <!-- Bottom Fade Overlay -->
+      <div class="hero-fade-overlay"></div>
+
       <!-- Decorative Elements -->
-      <div class="hero-decoration">
+      <div class="hero-decoration" *ngIf="isDesktop">
         <div class="circle circle-1"></div>
         <div class="circle circle-2"></div>
         <div class="terminal" [class.terminal-visible]="terminalVisible">
@@ -172,6 +187,39 @@ import { CommonModule } from '@angular/common';
         position: relative;
         padding: 120px 0 60px;
         overflow: hidden;
+        background: transparent;
+      }
+
+      .laser-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: auto;
+      }
+
+      .hero-fade-overlay {
+        display: none;
+      }
+
+      .hero-floor-glow {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 120px;
+        background: radial-gradient(
+          ellipse 100% 100% at 50% 100%,
+          rgba(0, 212, 255, 0.25) 0%,
+          rgba(0, 212, 255, 0.1) 30%,
+          transparent 70%
+        );
+        z-index: 2;
+        pointer-events: none;
+        filter: blur(20px);
       }
 
       .container {
@@ -179,6 +227,8 @@ import { CommonModule } from '@angular/common';
         margin: 0 auto;
         padding: 0 24px;
         width: 100%;
+        position: relative;
+        z-index: 5;
       }
 
       .hero-content {
@@ -297,6 +347,7 @@ import { CommonModule } from '@angular/common';
         color: var(--color-text-muted);
         font-size: 0.85rem;
         animation: bounce 2s infinite;
+        z-index: 15;
       }
 
       .mouse {
@@ -704,6 +755,9 @@ import { CommonModule } from '@angular/common';
 })
 export class HeroComponent implements AfterViewInit {
   @ViewChild('typingText') typingText!: ElementRef;
+
+  // Check if device is desktop (screen width > 1024px)
+  isDesktop = typeof window !== 'undefined' && window.innerWidth > 1024;
 
   roles = [
     'Software Engineer',

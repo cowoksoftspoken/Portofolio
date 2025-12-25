@@ -501,7 +501,6 @@ interface Experiment {
         display: flex;
         flex-direction: column;
         gap: 20px;
-        overflow-y: auto;
         max-height: 1200px;
       }
 
@@ -992,6 +991,10 @@ interface Experiment {
           flex-direction: column;
           text-align: center;
           padding: 20px;
+        }
+
+        .experiment-card {
+          max-height: 100%;
         }
 
         .scoping-demo {

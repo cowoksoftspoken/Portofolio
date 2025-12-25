@@ -101,11 +101,10 @@ import { CommonModule } from '@angular/common';
 
       .header.scrolled {
         background: rgba(13, 13, 13, 0.95);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         padding: 15px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
       }
 
       .container {
@@ -124,7 +123,8 @@ import { CommonModule } from '@angular/common';
         font-family: 'Fira Code', monospace;
         font-size: 1.5rem;
         font-weight: 600;
-        text-decoration: none;\r\n        transition: all 0.3s ease;
+        text-decoration: none;
+        transition: all 0.3s ease;
         display: flex;
         align-items: center;
         gap: 2px;
@@ -138,7 +138,14 @@ import { CommonModule } from '@angular/common';
         color: var(--color-text);
       }
 
-      .logo-slash {\r\n        color: var(--color-purple);\r\n      }\r\n\r\n      .logo:hover {\r\n        transform: translateY(-2px);\r\n        filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));\r\n      }
+      .logo-slash {
+        color: var(--color-purple);
+      }
+
+      .logo:hover {
+        transform: translateY(-2px);
+        filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+      }
 
       .nav-links {
         display: flex;
@@ -213,7 +220,6 @@ import { CommonModule } from '@angular/common';
         transform: rotate(-45deg) translate(5px, -5px);
       }
 
-      /* CV Download Button */
       .cv-download-btn {
         display: inline-flex;
         align-items: center;
@@ -333,7 +339,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() isScrolled = false;
   mobileMenuOpen = false;
   activeSection = '';
-  private scrollListener: (() => void) | null = null;
 
   navLinks = [
     { id: 'about', label: 'About' },
@@ -349,9 +354,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.updateActiveSection();
   }
 
-  ngOnDestroy() {
-    // Cleanup if needed
-  }
+  ngOnDestroy() {}
 
   @HostListener('window:scroll')
   onWindowScroll() {
@@ -361,7 +364,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private updateActiveSection() {
     const scrollPosition = window.scrollY + 150;
 
-    // Check sections in reverse order (bottom to top)
     const sectionIds = [
       'contact',
       'experiments',
@@ -385,7 +387,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
 
-    // If at top of page
     if (window.scrollY < 100) {
       this.activeSection = '';
     }

@@ -1,7 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LoadingComponent } from './components/loading/loading.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HeroComponent } from './components/hero/hero.component';
+import { ScrollVelocityComponent } from './components/scroll-velocity/scroll-velocity.component';
 import { AboutComponent } from './components/about/about.component';
 import { SkillsComponent } from './components/skills/skills.component';
 import { ProjectsComponent } from './components/projects/projects.component';
@@ -16,8 +18,10 @@ import { ExperimentsComponent } from './components/experiments/experiments.compo
   standalone: true,
   imports: [
     CommonModule,
+    LoadingComponent,
     HeaderComponent,
     HeroComponent,
+    ScrollVelocityComponent,
     AboutComponent,
     SkillsComponent,
     ProjectsComponent,
@@ -28,31 +32,37 @@ import { ExperimentsComponent } from './components/experiments/experiments.compo
     FooterComponent,
   ],
   template: `
-    <!-- Animated Background -->
-    <div class="animated-bg"></div>
+    <!-- Loading Screen -->
+    <setya-loading (loadingComplete)="onLoadingComplete()"></setya-loading>
 
-    <!-- Floating Particles -->
-    <div class="particles">
-      <div class="particle" *ngFor="let p of particles"></div>
-    </div>
+    <ng-container *ngIf="!isLoading">
+      <!-- Animated Background -->
+      <div class="animated-bg"></div>
 
-    <!-- Header -->
-    <setya-header [isScrolled]="isScrolled"></setya-header>
+      <!-- Floating Particles -->
+      <div class="particles">
+        <div class="particle" *ngFor="let p of particles"></div>
+      </div>
 
-    <!-- Main Content -->
-    <main>
-      <setya-hero></setya-hero>
-      <setya-about></setya-about>
-      <setya-skills></setya-skills>
-      <setya-projects></setya-projects>
-      <setya-certificates></setya-certificates>
-      <setya-gallery></setya-gallery>
-      <setya-experiments></setya-experiments>
-      <setya-contact></setya-contact>
-    </main>
+      <!-- Header -->
+      <setya-header [isScrolled]="isScrolled"></setya-header>
 
-    <!-- Footer -->
-    <setya-footer></setya-footer>
+      <!-- Main Content -->
+      <main>
+        <setya-hero></setya-hero>
+        <setya-scroll-velocity></setya-scroll-velocity>
+        <setya-about></setya-about>
+        <setya-skills></setya-skills>
+        <setya-projects></setya-projects>
+        <setya-certificates></setya-certificates>
+        <setya-gallery></setya-gallery>
+        <setya-experiments></setya-experiments>
+        <setya-contact></setya-contact>
+      </main>
+
+      <!-- Footer -->
+      <setya-footer></setya-footer>
+    </ng-container>
 
     <!-- Back to Top Button -->
     <button
@@ -124,6 +134,7 @@ import { ExperimentsComponent } from './components/experiments/experiments.compo
 })
 export class App implements OnInit {
   isScrolled = false;
+  isLoading = true;
   particles = Array(10).fill(0);
 
   @HostListener('window:scroll')
@@ -131,8 +142,13 @@ export class App implements OnInit {
     this.isScrolled = window.scrollY > 100;
   }
 
-  ngOnInit() {
-    this.initScrollAnimations();
+  ngOnInit() {}
+
+  onLoadingComplete() {
+    this.isLoading = false;
+    setTimeout(() => {
+      this.initScrollAnimations();
+    }, 100);
   }
 
   scrollToTop() {
